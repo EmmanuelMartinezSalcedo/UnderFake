@@ -80,13 +80,5 @@ public class MultiplayerPlayerController : CommunicationBridge
     public override void Possessed(bool isMe, User user)
     {
         enabled = isMe;
-        if (background != null)
-        {
-            background.enabled = isMe;
-        }
-        else
-        {
-            background.gameObject.SetActive(isMe);
-        }
     }
 }
