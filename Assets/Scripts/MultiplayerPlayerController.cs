@@ -21,8 +21,18 @@ public class MultiplayerPlayerController : CommunicationBridge
     private Vector2 targetPosition;
     private SpriteRenderer spriteRenderer;
     private bool isBlinking = false;
+
+    private Alteruna.Avatar _avatar;
+
     void Start()
     {
+        _avatar = GetComponent<Alteruna.Avatar>();
+
+        if (!_avatar.IsMe)
+        {
+            return;
+        }
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -41,6 +51,10 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     void Update()
     {
+        if (!_avatar.IsMe)
+        {
+            return;
+        }
         Vector2 currentPos = transform.position;
         Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
         transform.position = newPos;

@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8028006220379762873}
   - component: {fileID: 3344743406090391525}
   - component: {fileID: 4485022469355120170}
-  - component: {fileID: 3372702551827331842}
+  - component: {fileID: 573579761876770051}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -317,7 +317,7 @@ MonoBehaviour:
   blinkDuration: 0.1
   blinkCount: 5
   background: {fileID: 1758968737662489553}
---- !u!114 &3372702551827331842
+--- !u!114 &573579761876770051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: 1d8f7968-f746-4428-a0a0-f73617a31c9d
+  _uidString: 4874215b-27bb-4096-bfb1-1d5cdf18495c
   BucketBehaviors:
   - Name: Min
     NetLOD: 0
