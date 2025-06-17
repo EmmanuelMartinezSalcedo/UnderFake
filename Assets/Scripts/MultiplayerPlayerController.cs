@@ -21,7 +21,6 @@ public class MultiplayerPlayerController : CommunicationBridge
     private Vector2 targetPosition;
     private SpriteRenderer spriteRenderer;
     private bool isBlinking = false;
-
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -42,7 +41,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     void Update()
     {
-        if (!enabled) return;
         Vector2 currentPos = transform.position;
         Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
         transform.position = newPos;
@@ -77,8 +75,8 @@ public class MultiplayerPlayerController : CommunicationBridge
         isBlinking = false;
     }
 
-    public override void Possessed(bool isMe, User user)
+    public override void Possessed(bool isPossessor, User user)
     {
-        enabled = isMe;
+        enabled = isPossessor;
     }
 }
