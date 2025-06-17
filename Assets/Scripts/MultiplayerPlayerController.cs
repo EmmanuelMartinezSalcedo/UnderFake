@@ -23,25 +23,47 @@ public class MultiplayerPlayerController : CommunicationBridge
     private bool isBlinking = false;
 
     private Alteruna.Avatar _avatar;
+    private bool _avatarSearchFailed = false;
 
-    void Start()
+    private IEnumerator Start()
     {
-        _avatar = GetComponent<Alteruna.Avatar>();
+        yield return null;
 
-        if (!_avatar.IsMe)
+        _avatar = GetComponentInParent<Alteruna.Avatar>();
+
+        int attempts = 0;
+        while (_avatar == null && attempts < 3)
         {
-            return;
+            attempts++;
+            yield return null;
+            _avatar = GetComponentInParent<Alteruna.Avatar>();
         }
+
+        if (_avatar == null)
+        {
+            _avatarSearchFailed = true;
+            Debug.LogError($"No se encontró Alteruna.Avatar en los padres de {name}. Jerarquía actual:", gameObject);
+            LogFullHierarchy();
+            yield break;
+        }
+
+        if (!_avatar.IsMe) yield break;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
+        if (spriteRenderer == null) Debug.LogWarning("No SpriteRenderer found on Player!");
+        if (background == null) Debug.LogWarning("No Background found for Player!");
+    }
+
+    private void LogFullHierarchy()
+    {
+        Transform current = transform;
+        string hierarchyPath = current.name;
+        while (current.parent != null)
         {
-            Debug.LogWarning("No SpriteRenderer found on Player!");
-        } 
-        if (background == null)
-        {
-            Debug.LogWarning("No Background found for Player!");
+            current = current.parent;
+            hierarchyPath = $"{current.name}/{hierarchyPath}";
         }
+        Debug.Log($"Jerarquía completa: {hierarchyPath}");
     }
 
     public void SetTargetPosition(Vector2 worldPosition)
