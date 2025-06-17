@@ -19,11 +19,11 @@ public class InstantiatePlayer : MonoBehaviour
 
         if (instanciasCreadas == 0)
         {
-            prefabAInstanciar = heartPrefab; // primera instancia: triángulo
+            prefabAInstanciar = heartPrefab;
         }
         else
         {
-            prefabAInstanciar = handsPrefab; // segunda instancia en adelante: cubo
+            prefabAInstanciar = handsPrefab;
         }
 
         GameObject instancia = Instantiate(prefabAInstanciar, transform.position, Quaternion.identity);

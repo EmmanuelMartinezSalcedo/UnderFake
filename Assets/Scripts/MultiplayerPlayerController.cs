@@ -42,6 +42,7 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     void Update()
     {
+        if (!enabled) return;
         Vector2 currentPos = transform.position;
         Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
         transform.position = newPos;
