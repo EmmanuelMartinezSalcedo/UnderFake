@@ -1,7 +1,6 @@
 using System.Collections;
 using Mediapipe.Tasks.Vision.FaceLandmarker;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
 {
@@ -120,15 +119,26 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
                     float x = noseTip.x;
                     float y = noseTip.y;
 
+                    // Aplicar inversión si es necesario
                     x = 0.5f + (x - 0.5f) * flipX;
                     y = 0.5f + (y - 0.5f) * flipY;
 
-                    int pixelX = (int)(x * textureWidth) - 30;
-                    int pixelY = (int)(y * textureHeight) - 130; 
+                    // Convertir a coordenadas de píxeles
+                    int pixelX = (int)(x * textureWidth);
+                    int pixelY = (int)(y * textureHeight);
+
+                    // Desplazamiento relativo a la pantalla
+                    int offsetX = (int)(UnityEngine.Screen.width * 0.05f);  // 5% del ancho
+                    int offsetY = (int)(UnityEngine.Screen.height * 0.15f); // 15% del alto
+
+                    // Aplicar desplazamiento
+                    pixelX -= offsetX;
+                    pixelY -= offsetY;
 
                     _pendingScreenNoseTip = new Vector2(pixelX, pixelY);
                 }
             }
         }
+
     }
 }
