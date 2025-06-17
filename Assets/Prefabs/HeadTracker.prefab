@@ -51,6 +51,7 @@ MonoBehaviour:
   screen2D: {fileID: 651928553575530025}
   runningMode: 0
   playerController: {fileID: 4485022469355120170}
+  cameraDisplayTransform: {fileID: 5601765420549191142}
 --- !u!1 &3479588821984916556
 GameObject:
   m_ObjectHideFlags: 0

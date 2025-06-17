@@ -48,11 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bootstrapPrefab: {fileID: 968918444066301895, guid: 1146a9de09159a948b683e94fb3d3c95, type: 3}
-  screen2D: {fileID: 8058560102523220393}
   screen: {fileID: 0}
+  screen2D: {fileID: 8058560102523220393}
   runningMode: 0
   leftHandController: {fileID: 870705372309992194}
   rightHandController: {fileID: 1114890713480557531}
+  cameraDisplayTransform: {fileID: 9074485609747056956}
 --- !u!1 &3135499296700583731
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
     {
         [SerializeField] private MultiplayerPlayerController leftHandController;
         [SerializeField] private MultiplayerPlayerController rightHandController;
+        [SerializeField] private Transform cameraDisplayTransform;
 
         private Experimental.TextureFramePool _textureFramePool;
         public readonly HandLandmarkDetectionConfig config = new HandLandmarkDetectionConfig
@@ -18,10 +19,11 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
         private Vector2? _pendingLeftHand;
         private Vector2? _pendingRightHand;
 
-        private float flipX = 1f;
-        private float flipY = 1f;
         private int textureWidth;
         private int textureHeight;
+
+        private float displayX, displayY, displayWidth, displayHeight;
+        private bool isMirrorMode = false;
 
         public override void Stop()
         {
@@ -75,9 +77,9 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
             _textureFramePool = new Experimental.TextureFramePool(textureWidth, textureHeight, TextureFormat.RGBA32, 10);
             screen2D.Initialize(imageSource);
 
+            CalculateDisplayRect();
+
             var transformationOptions = imageSource.GetTransformationOptions();
-            flipX = transformationOptions.flipHorizontally ? -1f : 1f;
-            flipY = transformationOptions.flipVertically ? -1f : 1f;
 
             var imageProcessingOptions = new Tasks.Vision.Core.ImageProcessingOptions(
                 rotationDegrees: (int)transformationOptions.rotationAngle
@@ -105,6 +107,56 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
             }
         }
 
+        private void CalculateDisplayRect()
+        {
+            if (cameraDisplayTransform != null)
+            {
+                var spriteRenderer = cameraDisplayTransform.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null && spriteRenderer.sprite != null)
+                {
+                    var bounds = spriteRenderer.bounds;
+
+                    Vector3 bottomLeft = Camera.main.WorldToScreenPoint(new Vector3(bounds.min.x, bounds.min.y, bounds.center.z));
+                    Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector3(bounds.max.x, bounds.max.y, bounds.center.z));
+
+                    displayX = bottomLeft.x;
+                    displayY = bottomLeft.y;
+                    displayWidth = topRight.x - bottomLeft.x;
+                    displayHeight = topRight.y - bottomLeft.y;
+                }
+                else
+                {
+                    Debug.LogWarning("SpriteRenderer not found on cameraDisplayTransform, using full screen");
+                    SetFullScreenDisplay();
+                }
+            }
+            else
+            {
+                SetFullScreenDisplay();
+            }
+        }
+
+        private void SetFullScreenDisplay()
+        {
+            displayX = 0;
+            displayY = 0;
+            displayWidth = UnityEngine.Screen.width;
+            displayHeight = UnityEngine.Screen.height;
+        }
+
+        private Vector2 MapNormalizedToScreen(float normalizedX, float normalizedY)
+        {
+            if (isMirrorMode)
+            {
+                normalizedX = 1f - normalizedX;
+            }
+
+            float screenX = displayX + (normalizedX * displayWidth);
+            float screenY = displayY + ((1f - normalizedY) * displayHeight);
+
+            return new Vector2(screenX, screenY);
+        }
+
         private void OnHandLandmarkDetectionOutput(HandLandmarkerResult result, Image image, long timestamp)
         {
             _pendingLeftHand = null;
@@ -113,26 +165,25 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
             for (int i = 0; i < result.handLandmarks.Count; i++)
             {
                 var landmarks = result.handLandmarks[i];
-                var wrist = landmarks.landmarks[0]; // wrist (landmark 0)
+                var wrist = landmarks.landmarks[0];
 
-                float x = wrist.x;
-                float y = wrist.y;
+                float normalizedX = wrist.x;
+                float normalizedY = wrist.y;
 
-                x = 0.5f + (x - 0.5f) * flipX;
-                y = 0.5f + (y - 0.5f) * flipY;
+                Vector2 screenPos = MapNormalizedToScreen(normalizedX, normalizedY);
 
-                int pixelX = (int)(x * textureWidth);
-                int pixelY = (int)(y * textureHeight);
-
-                // Asegúrate de que handedness esté presente
                 if (i < result.handedness.Count && result.handedness[i].categories.Count > 0)
                 {
                     var handType = result.handedness[i].categories[0].categoryName;
 
                     if (handType == "Left")
-                        _pendingLeftHand = new Vector2(pixelX, pixelY);
+                    {
+                        _pendingLeftHand = screenPos;
+                    }
                     else if (handType == "Right")
-                        _pendingRightHand = new Vector2(pixelX, pixelY);
+                    {
+                        _pendingRightHand = screenPos;
+                    }
                 }
             }
         }

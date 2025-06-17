@@ -1,5 +1,4 @@
 using System.Collections;
-using Mediapipe.Tasks.Components.Containers;
 using Mediapipe.Tasks.Vision.FaceLandmarker;
 using UnityEngine;
 
@@ -8,20 +7,17 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
     public class FaceLandmarkerNoseTipDetector : VisionTaskApiRunner<FaceLandmarker>
     {
         [SerializeField] private MultiplayerPlayerController playerController;
-        [SerializeField] private RectTransform cameraDisplayRect;
+        [SerializeField] private Transform cameraDisplayTransform;
 
         private Experimental.TextureFramePool _textureFramePool;
         public readonly FaceLandmarkDetectionConfig config = new FaceLandmarkDetectionConfig();
 
         private Vector2? _pendingScreenNoseTip;
 
-        private float flipX = 1f;
-        private float flipY = 1f;
         private int textureWidth;
         private int textureHeight;
 
-        // Variables para mapeo de coordenadas
-        private UnityEngine.Rect displayRect;
+        private float displayX, displayY, displayWidth, displayHeight;
         private bool isMirrorMode = false;
 
         public override void Stop()
@@ -68,12 +64,9 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
             _textureFramePool = new Experimental.TextureFramePool(textureWidth, textureHeight, TextureFormat.RGBA32, 10);
             screen2D.Initialize(imageSource);
 
-            // Calcular el área de display de la cámara
             CalculateDisplayRect();
 
             var transformationOptions = imageSource.GetTransformationOptions();
-            flipX = transformationOptions.flipHorizontally ? -1f : 1f;
-            flipY = transformationOptions.flipVertically ? -1f : 1f;
 
             var imageProcessingOptions = new Tasks.Vision.Core.ImageProcessingOptions(
                 rotationDegrees: (int)transformationOptions.rotationAngle
@@ -114,38 +107,50 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
 
         private void CalculateDisplayRect()
         {
-            if (cameraDisplayRect != null)
+            if (cameraDisplayTransform != null)
             {
-                // Usar el RectTransform específico donde se muestra la cámara
-                Vector3[] corners = new Vector3[4];
-                cameraDisplayRect.GetWorldCorners(corners);
+                var spriteRenderer = cameraDisplayTransform.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null && spriteRenderer.sprite != null)
+                {
+                    var bounds = spriteRenderer.bounds;
 
-                Vector2 screenBottomLeft = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[0]);
-                Vector2 screenTopRight = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[2]);
+                    Vector3 bottomLeft = Camera.main.WorldToScreenPoint(new Vector3(bounds.min.x, bounds.min.y, bounds.center.z));
+                    Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector3(bounds.max.x, bounds.max.y, bounds.center.z));
 
-                displayRect = new UnityEngine.Rect(screenBottomLeft.x, screenBottomLeft.y,
-                                     screenTopRight.x - screenBottomLeft.x,
-                                     screenTopRight.y - screenBottomLeft.y);
-                
+                    displayX = bottomLeft.x;
+                    displayY = bottomLeft.y;
+                    displayWidth = topRight.x - bottomLeft.x;
+                    displayHeight = topRight.y - bottomLeft.y;
+                }
+                else
+                {
+                    Debug.LogWarning("SpriteRenderer not found on cameraDisplayTransform, using full screen");
+                    SetFullScreenDisplay();
+                }
             }
             else
             {
-                // Fallback: usar toda la pantalla
-                displayRect = new UnityEngine.Rect(0, 0, UnityEngine.Screen.width, UnityEngine.Screen.height);
+                SetFullScreenDisplay();
             }
+        }
+
+        private void SetFullScreenDisplay()
+        {
+            displayX = 0;
+            displayY = 0;
+            displayWidth = UnityEngine.Screen.width;
+            displayHeight = UnityEngine.Screen.height;
         }
 
         private Vector2 MapNormalizedToScreen(float normalizedX, float normalizedY)
         {
-            // Si está en modo espejo, invertir X
             if (isMirrorMode)
             {
                 normalizedX = 1f - normalizedX;
             }
 
-            // Mapear coordenadas normalizadas (0-1) al área de display
-            float screenX = displayRect.x + (normalizedX * displayRect.width);
-            float screenY = displayRect.y + ((1f - normalizedY) * displayRect.height); // Invertir Y porque MediaPipe usa origen arriba-izquierda
+            float screenX = displayX + (normalizedX * displayWidth);
+            float screenY = displayY + ((1f - normalizedY) * displayHeight);
 
             return new Vector2(screenX, screenY);
         }
@@ -164,11 +169,9 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
                 {
                     var noseTip = landmarks.landmarks[1];
 
-                    // Las coordenadas de MediaPipe ya están normalizadas (0-1)
                     float normalizedX = noseTip.x;
                     float normalizedY = noseTip.y;
 
-                    // Mapear a coordenadas de pantalla
                     Vector2 screenPos = MapNormalizedToScreen(normalizedX, normalizedY);
 
                     _pendingScreenNoseTip = screenPos;
