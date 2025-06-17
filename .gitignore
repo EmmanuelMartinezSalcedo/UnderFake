@@ -87,4 +87,5 @@ crashlytics-build.properties
 Assets/Scripts/Python/
 Packages/Newtonsoft.Json*/
 Assets/Alteruna/Plugins/
-Packages/com.github.homuler.mediapipe/Runtime/Plugins/**/*.dll
+/Packages/com.github.homuler.mediapipe/
+
