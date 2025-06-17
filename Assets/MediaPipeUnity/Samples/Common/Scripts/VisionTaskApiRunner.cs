@@ -11,8 +11,8 @@ namespace Mediapipe.Unity.Sample
 {
   public abstract class VisionTaskApiRunner<TTask> : BaseRunner where TTask : Tasks.Vision.Core.BaseVisionTaskApi
   {
-    [SerializeField] protected Screen2D screen2D;
     [SerializeField] protected Screen screen;
+    [SerializeField] protected Screen2D screen2D;
 
     private Coroutine _coroutine;
     protected TTask taskApi;
