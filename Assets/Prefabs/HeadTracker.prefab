@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bootstrapPrefab: {fileID: 968918444066301895, guid: 1146a9de09159a948b683e94fb3d3c95, type: 3}
-  screen: {fileID: 651928553575530025}
+  screen: {fileID: 0}
+  screen2D: {fileID: 651928553575530025}
   runningMode: 0
   playerController: {fileID: 4485022469355120170}
 --- !u!1 &3479588821984916556

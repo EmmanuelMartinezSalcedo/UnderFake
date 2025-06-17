@@ -54,6 +54,10 @@ public class Screen2D : MonoBehaviour
             100f
         );
         _renderer.sprite = sprite;
+        Vector3 scale = transform.localScale;
+        scale.x = -2f;
+        transform.localScale = scale;
+
     }
 
     void Update()
