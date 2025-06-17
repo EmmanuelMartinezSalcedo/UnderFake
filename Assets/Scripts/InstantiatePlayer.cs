@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class InstantiatePlayer : MonoBehaviour
@@ -5,33 +6,35 @@ public class InstantiatePlayer : MonoBehaviour
     [SerializeField] private GameObject heartPrefab;
     [SerializeField] private GameObject handsPrefab;
 
-    private static int playerCount = 0;
+    private static int instanciasCreadas = 0;
 
-    //void Start()
-    //{
-    //    GameObject prefabToSpawn;
-
-    //    if (playerCount == 0)
-    //    {
-    //        prefabToSpawn = heartPrefab;
-    //    }
-    //    else if (playerCount == 1)
-    //    {
-    //        prefabToSpawn = handsPrefab;
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning("Más de 2 jugadores no están soportados.");
-    //        return;
-    //    }
-
-    //    Instantiate(prefabToSpawn, transform.position, transform.rotation);
-    //    playerCount++;
-    //}
-
-    void Start()
+    private void Start()
     {
-        Instantiate(heartPrefab, transform.position, transform.rotation);
-        Instantiate(handsPrefab, transform.position, transform.rotation);
+        Invoke(nameof(InstanciarJugador), 0.5f);
+    }
+
+    void InstanciarJugador()
+    {
+        GameObject prefabAInstanciar;
+
+        if (instanciasCreadas == 0)
+        {
+            prefabAInstanciar = heartPrefab; // primera instancia: triángulo
+        }
+        else
+        {
+            prefabAInstanciar = handsPrefab; // segunda instancia en adelante: cubo
+        }
+
+        GameObject instancia = Instantiate(prefabAInstanciar, transform.position, Quaternion.identity);
+        instanciasCreadas++;
+
+        StartCoroutine(SetAsChildNextFrame(instancia.transform));
+    }
+
+    private IEnumerator SetAsChildNextFrame(Transform hijo)
+    {
+        yield return null;
+        hijo.SetParent(transform);
     }
 }
