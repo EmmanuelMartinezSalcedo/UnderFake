@@ -1,29 +1,32 @@
 using UnityEngine;
+using Alteruna;
 using System.Collections;
 using System.Collections.Generic;
-using Alteruna;
-public class BulletHellManager : MonoBehaviour
+
+public class AttackSpawner : MonoBehaviour
 {
+    private Alteruna.Avatar _avatar;
+    private Spawner _spawner;
+
+    [SerializeField] private int indexToSpawn = 0;
+    [SerializeField] private float delayBetweenShots = 1f;
+    
+
     [Header("Attack Patterns")]
     public List<AttackPattern> patterns;
 
-    [Header("References")]
-    public Transform playerTransform;
+    [Header("Circle Pattern origin")]
     public List<Transform> circleAttackPoints;
 
-    [Header("Blaster Settings")]
-    public List<Transform> blasterAttackPoints;
+    public Transform playerTransform;
 
-    [Header("Timing")]
-    public float patternDelay = 2f;
-
-    private Spawner _spawner;
+    private bool canShoot = true;
 
     private void Awake()
     {
+        _avatar = GetComponent<Alteruna.Avatar>();
         _spawner = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Spawner>();
     }
-
     private void Start()
     {
         StartCoroutine(ExecutePatternsLoop());
@@ -36,34 +39,16 @@ public class BulletHellManager : MonoBehaviour
             foreach (AttackPattern pattern in patterns)
             {
                 Debug.Log("Starting pattern: " + pattern.patternType);
-
                 Transform chosenPoint = playerTransform;
 
                 if (pattern.patternType == "Circle" && circleAttackPoints.Count > 0)
                 {
                     chosenPoint = circleAttackPoints[Random.Range(0, circleAttackPoints.Count)];
                 }
-                else if (pattern.patternType == "Arrow")
-                {
-                    chosenPoint = playerTransform;
-                }
-                else if (pattern.patternType == "Blaster")
-                {
-                    if (blasterAttackPoints.Count > 0)
-                    {
-                        chosenPoint = blasterAttackPoints[Random.Range(0, blasterAttackPoints.Count)];
-                    }
-                    else
-                    {
-                        Debug.LogWarning("No blaster attack points assigned!");
-                        chosenPoint = transform;
-                    }
-                }
+
 
                 AttackContext context = new AttackContext(playerTransform, chosenPoint, _spawner);
                 yield return StartCoroutine(pattern.Execute(context));
-
-                yield return new WaitForSeconds(patternDelay);
             }
         }
     }

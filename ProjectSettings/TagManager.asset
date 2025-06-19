@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Bullet
+  - Global Resource
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
