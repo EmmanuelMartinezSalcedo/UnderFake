@@ -11,6 +11,9 @@ public class AutoJoinRoom : MonoBehaviour
     private Multiplayer _multiplayer;
     private bool _attemptedJoin = false;
 
+    public GameObject newObjectPrefab;
+    public Vector3 spawnPosition;
+
     private void Start()
     {
         _multiplayer = FindFirstObjectByType<Multiplayer>();
@@ -32,12 +35,12 @@ public class AutoJoinRoom : MonoBehaviour
 
     private void OnConnected(Multiplayer multiplayer, Endpoint endpoint)
     {
-        _multiplayer.RefreshRoomList(); // Esto disparará OnRoomListUpdated
+        _multiplayer.RefreshRoomList();
     }
 
     private void OnRoomListUpdated(Multiplayer multiplayer)
     {
-        if (_attemptedJoin) return; // Solo intentamos una vez
+        if (_attemptedJoin) return;
         _attemptedJoin = true;
 
         foreach (var room in multiplayer.AvailableRooms)
@@ -46,6 +49,7 @@ public class AutoJoinRoom : MonoBehaviour
             {
                 Debug.Log("Joining existing room: " + RoomName);
                 room.Join();
+                GameObject newObj = Instantiate(newObjectPrefab, spawnPosition, Quaternion.identity);
                 return;
             }
         }
