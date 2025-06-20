@@ -10,7 +10,7 @@ public class HeadHoverSelector : MonoBehaviour
     [Header("Cursor")]
     public GameObject cursor;
 
-    [Header("Botón al que se le cambia el color")]
+    [Header("Botón")]
     public Button targetButton;
 
     [Header("Colores")]
@@ -73,11 +73,8 @@ public class HeadHoverSelector : MonoBehaviour
     {
         switch (gameObject.name)
         {
-            case "Player1Button":
-                SceneManager.LoadScene("SampleScene");
-                break;
-            case "Player2Button":
-                SceneManager.LoadScene("SecondPlayer");
+            case "Start":
+                SceneManager.LoadScene("MultiplayerLobby");
                 break;
             case "ExitButton":
                 Application.Quit();

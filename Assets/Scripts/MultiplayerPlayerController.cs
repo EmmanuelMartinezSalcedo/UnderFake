@@ -25,7 +25,6 @@ public class MultiplayerPlayerController : CommunicationBridge
     private bool isBlinking = false;
 
     private Alteruna.Avatar _avatar;
-    private bool _avatarSearchFailed = false;
 
     private IEnumerator Start()
     {
@@ -43,7 +42,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
         if (_avatar == null)
         {
-            _avatarSearchFailed = true;
             Debug.LogError($"No se encontró Alteruna.Avatar en los padres de {name}. Jerarquía actual:", gameObject);
             LogFullHierarchy();
             yield break;

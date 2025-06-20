@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8120394760909484c8befdbdc909b029
+guid: 0f14d62e7119b944195ab0e5e3986967
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -274769445843045768
-    second: PlayerHeart_0
+      213: -6479099899349894701
+    second: PlayerBarrier2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerHeart_0
+      name: PlayerBarrier2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 11
+        y: 1
+        width: 19
+        height: 62
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 872f46115a2df2cf0800000000000000
-      internalID: -274769445843045768
+      spriteID: 3d9faf228fc9516a0800000000000000
+      internalID: -6479099899349894701
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e1b664cdf68d344fb5ea7b0d856e2fa
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerHeart_0: -274769445843045768
+      PlayerBarrier2_0: -6479099899349894701
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
