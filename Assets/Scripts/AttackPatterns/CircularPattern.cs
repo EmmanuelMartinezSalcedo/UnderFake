@@ -30,8 +30,7 @@ public class CircularPattern : AttackPattern
                 float angle = angleOffset + i * angleStep;
                 float rad = angle * Mathf.Deg2Rad;
                 Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-
-                GameObject bullet = GameObject.Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+                GameObject bullet = context.spawner.Spawn(0, spawnPos, dir, new Vector3(0.5f, 0.5f, 0.5f));
                 bullet.GetComponent<Rigidbody2D>().linearVelocity = dir * bulletSpeed;
             }
 

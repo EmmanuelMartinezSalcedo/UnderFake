@@ -4,6 +4,8 @@ using Alteruna;
 
 public class MultiplayerPlayerController : CommunicationBridge
 {
+    public bool isInvincible;
+    
     [Header("Movimiento")]
     public float speed = 1f;
 
@@ -92,7 +94,12 @@ public class MultiplayerPlayerController : CommunicationBridge
         if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
-            StartCoroutine(BlinkEffect());
+            if (!isInvincible)
+            {
+                health -= 10;
+                StartCoroutine(BlinkEffect());
+            }
+            
         }
     }
 
