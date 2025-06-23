@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db5effed9a1dbd4baace108e006d17e, type: 3}
   m_Name: BorderArrowAttack
   m_EditorClassIdentifier: 
+  patternType: Arrow
   duration: 3
   arrowPrefab: {fileID: 1038998517629770113, guid: 1be8f8e619d1cb741a44e09f4bc5ad3d, type: 3}
   alertPrefab: {fileID: 1330464748588093473, guid: 463965c53d1c2e94ab2d602f381d90fe, type: 3}
-  arrowCount: 20
+  arrowCount: 1
   arrowSpeed: 5
   alertBlinkCount: 3
   alertBlinkDuration: 0.2

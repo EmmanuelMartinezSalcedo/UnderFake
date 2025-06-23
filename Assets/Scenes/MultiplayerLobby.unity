@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomName: global
   MaxUsers: 2
-  newObjectPrefab: {fileID: 0}
+  newObjectPrefab: {fileID: 9210475298204100159, guid: 6a284f647251ed34c8dee245ead00757, type: 3}
   spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &825640867
 GameObject:
@@ -578,6 +578,7 @@ MonoBehaviour:
   Multiplayer: {fileID: 2099026564}
   SpawnableObjects:
   - {fileID: 8025923629429340744, guid: 27e24c48daceaa74884a2cc1a4c11312, type: 3}
+  - {fileID: 1038998517629770113, guid: 1be8f8e619d1cb741a44e09f4bc5ad3d, type: 3}
   OnObjectSpawn:
     m_PersistentCalls:
       m_Calls: []

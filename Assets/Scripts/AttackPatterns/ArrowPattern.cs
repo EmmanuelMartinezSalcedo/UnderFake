@@ -58,15 +58,13 @@ public class ArrowRainAttack : AttackPattern
 
             alertBlink.OnBlinkComplete.AddListener(() =>
             {
-                GameObject arrowObj = Instantiate(arrowPrefab, capturedSpawnPos, Quaternion.identity);
+                GameObject arrowObj = context.spawner.Spawn(0, capturedSpawnPos, Vector3.zero, Vector3.one);
                 ArrowEnemy arrow = arrowObj.GetComponent<ArrowEnemy>();
                 arrow.speed = arrowSpeed;
                 arrow.Initialize(context.playerTransform);
 
                 Vector3 direction = (context.playerTransform.position - capturedSpawnPos);
                 Debug.DrawLine(capturedSpawnPos, capturedSpawnPos + direction.normalized * 3f, Color.red, 2f);
-
-                arrow.Shoot();
             });
         }
 

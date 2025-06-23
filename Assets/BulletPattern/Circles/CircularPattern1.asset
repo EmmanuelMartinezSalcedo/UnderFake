@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: CircularPattern1
   m_EditorClassIdentifier: 
   patternType: Circle
-  duration: 3
+  duration: 1
   bulletPrefab: {fileID: 8025923629429340744, guid: 27e24c48daceaa74884a2cc1a4c11312, type: 3}
   bulletCount: 20
   bulletSpeed: 4
-  timeBetweenBursts: 2
+  timeBetweenBursts: 1
   rotationPerBurst: 0
