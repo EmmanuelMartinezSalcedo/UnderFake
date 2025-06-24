@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class InstantiatePlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject heartPrefab;
-    [SerializeField] private GameObject handsPrefab;
+    [SerializeField] public GameObject heartPrefab;
+    [SerializeField] public GameObject handsPrefab;
 
     private static int instanciasCreadas = 0;
 

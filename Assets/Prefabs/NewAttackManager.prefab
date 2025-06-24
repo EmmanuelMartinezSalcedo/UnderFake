@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patterns:
-  - pattern: {fileID: 11400000, guid: 5ded4ccd487cd4740b1d458cdf89a0ac, type: 2}
+  - pattern: {fileID: 11400000, guid: f5fb5e474b2041c46828fc760a954a8d, type: 2}
     duration: 1
     spawnpoint: {fileID: 3484777994103932433}
   playerTransform: {fileID: 0}

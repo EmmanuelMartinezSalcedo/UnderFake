@@ -14,6 +14,9 @@ public class AutoJoinRoom : MonoBehaviour
     public GameObject newObjectPrefab;
     public Vector3 spawnPosition;
 
+    public GameObject player1;
+    public GameObject player2;
+
     private void Start()
     {
         _multiplayer = FindFirstObjectByType<Multiplayer>();
