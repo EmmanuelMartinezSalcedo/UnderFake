@@ -76,6 +76,9 @@ public class HeadHoverSelector : MonoBehaviour
             case "Start":
                 SceneManager.LoadScene("MultiplayerLobby");
                 break;
+            case "Skip":
+                SceneManager.LoadScene("MainMenu");
+                break;
             case "ExitButton":
                 Application.Quit();
                 break;

@@ -264,9 +264,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 636946291785506662, guid: 3271ea60f7628774998ae2c8120da132, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 636946291785506662, guid: 3271ea60f7628774998ae2c8120da132, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1065511201
+      objectReference: {fileID: 0}
     - target: {fileID: 1417045342397456786, guid: 3271ea60f7628774998ae2c8120da132, type: 3}
       propertyPath: m_Name
       value: HandsTracker
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770449834934271372, guid: 3271ea60f7628774998ae2c8120da132, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770449834934271372, guid: 3271ea60f7628774998ae2c8120da132, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1065511201
       objectReference: {fileID: 0}
     - target: {fileID: 6528634166010536935, guid: 3271ea60f7628774998ae2c8120da132, type: 3}
       propertyPath: m_LocalPosition.x

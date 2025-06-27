@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Alteruna;
+using TMPro;
 
 public class MultiplayerPlayerController : CommunicationBridge
 {
@@ -12,6 +13,7 @@ public class MultiplayerPlayerController : CommunicationBridge
     [Header("Tamaño y salud")]
     public float size = 1f;
     public int health = 100;
+    public TextMeshProUGUI healthText;
 
     [Header("Feedback")]
     public float blinkDuration = 0.1f;
@@ -85,6 +87,9 @@ public class MultiplayerPlayerController : CommunicationBridge
         {
             transform.position = targetPosition;
         }
+
+        if (healthText != null)
+            healthText.text = "HP: " + health.ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
