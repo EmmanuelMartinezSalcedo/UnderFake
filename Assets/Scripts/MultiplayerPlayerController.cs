@@ -149,14 +149,14 @@ public class MultiplayerPlayerController : CommunicationBridge
             if (!isInvincible)
             {
                 health -= 10;
-                RpcBlinkEffect();
+                BlinkEffect();
                 return;
             }
-            RpcTempDisableBarrier(5f);
+            TempDisableBarrier(5f);
         }
     }
 
-    public void RpcBlinkEffect()
+    public void BlinkEffect()
     {
         Debug.Log($"RpcBlinkEffect ejecutado en {gameObject.name}");
         isBlinking = true;
@@ -167,7 +167,7 @@ public class MultiplayerPlayerController : CommunicationBridge
             spriteRenderer.enabled = false;
     }
 
-    public void RpcTempDisableBarrier(float seconds)
+    public void TempDisableBarrier(float seconds)
     {
         Debug.Log($"RpcTempDisableBarrier ejecutado en {gameObject.name} por {seconds} segundos");
         barrierDisabled = true;
