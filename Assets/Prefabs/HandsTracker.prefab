@@ -166,7 +166,6 @@ GameObject:
   - component: {fileID: 6752915489787422062}
   - component: {fileID: 1114890713480557531}
   - component: {fileID: 636946291785506662}
-  - component: {fileID: 6794119823980184258}
   - component: {fileID: 1347773545089726073}
   - component: {fileID: 1759997358146109453}
   m_Layer: 0
@@ -285,41 +284,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6794119823980184258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6312917522013426031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1351115797, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Multiplayer: {fileID: 0}
-  _uidString: debf8652-059c-4514-a96d-6c57dc3f4e82
-  BucketBehaviors:
-  - Name: Min
-    NetLOD: 0
-    Frequency: -1
-  - Name: Low
-    NetLOD: 1
-    Frequency: 0
-  - Name: Mid
-    NetLOD: 2
-    Frequency: 0
-  - Name: High
-    NetLOD: 3
-    Frequency: 0
-  - Name: Max
-    NetLOD: 4
-    Frequency: 120
-  Reliability: 2
-  UseGlobalPosition: 0
-  OnlySyncFromRoomOwner: 0
-  refreshRate: 30
-  SyncedAxes: 203
 --- !u!60 &1347773545089726073
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -396,7 +360,6 @@ GameObject:
   - component: {fileID: 16764470600638921}
   - component: {fileID: 870705372309992194}
   - component: {fileID: 1770449834934271372}
-  - component: {fileID: 4123935657403189799}
   - component: {fileID: 1668065301122366584}
   - component: {fileID: 8972235037864779974}
   m_Layer: 0
@@ -515,41 +478,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4123935657403189799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8367766813693224385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1351115797, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Multiplayer: {fileID: 0}
-  _uidString: eab04af3-cf4d-49fb-88b6-cff7ab4b9556
-  BucketBehaviors:
-  - Name: Min
-    NetLOD: 0
-    Frequency: -1
-  - Name: Low
-    NetLOD: 1
-    Frequency: 0
-  - Name: Mid
-    NetLOD: 2
-    Frequency: 0
-  - Name: High
-    NetLOD: 3
-    Frequency: 0
-  - Name: Max
-    NetLOD: 4
-    Frequency: 120
-  Reliability: 2
-  UseGlobalPosition: 0
-  OnlySyncFromRoomOwner: 0
-  refreshRate: 30
-  SyncedAxes: 203
 --- !u!60 &1668065301122366584
 PolygonCollider2D:
   m_ObjectHideFlags: 0
