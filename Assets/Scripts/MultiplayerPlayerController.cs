@@ -83,27 +83,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     void Update()
     {
-        if (!_avatar.IsMe)
-        {
-            return;
-        }
-        Vector2 currentPos = transform.position;
-        Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
-        transform.position = newPos;
-
-        if (Vector2.Distance(newPos, targetPosition) < 0.01f)
-        {
-            transform.position = targetPosition;
-        }
-
-        if (healthText != null)
-            healthText.text = "HP: " + health.ToString();
-
-        if (health != _oldHealth)
-        {
-            _oldHealth = health;
-        }
-
         if (isBlinking)
         {
             blinkTimer += Time.deltaTime;
@@ -130,6 +109,27 @@ public class MultiplayerPlayerController : CommunicationBridge
                 _collider.enabled = true;
                 spriteRenderer.enabled = true;
             }
+        }
+
+        if (!_avatar.IsMe)
+        {
+            return;
+        }
+        Vector2 currentPos = transform.position;
+        Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
+        transform.position = newPos;
+
+        if (Vector2.Distance(newPos, targetPosition) < 0.01f)
+        {
+            transform.position = targetPosition;
+        }
+
+        if (healthText != null)
+            healthText.text = "HP: " + health.ToString();
+
+        if (health != _oldHealth)
+        {
+            _oldHealth = health;
         }
     }
 
