@@ -8,10 +8,6 @@ public class AttackSpawner : MonoBehaviour
     private Alteruna.Avatar _avatar;
     private Spawner _spawner;
 
-    [SerializeField] private int indexToSpawn = 0;
-    [SerializeField] private float delayBetweenShots = 1f;
-
-
     [Header("Attack Patterns")]
     public List<AttackPattern> patterns;
 
@@ -20,7 +16,6 @@ public class AttackSpawner : MonoBehaviour
 
     public Transform playerTransform;
 
-    private bool canShoot = true;
 
     private void Awake()
     {
