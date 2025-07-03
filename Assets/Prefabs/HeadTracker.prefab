@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 573579761876770051}
   m_Layer: 0
   m_Name: Heart
-  m_TagString: Player
+  m_TagString: Heart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
