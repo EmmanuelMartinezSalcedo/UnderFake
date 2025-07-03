@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomName: global
   MaxUsers: 2
-  newObjectPrefab: {fileID: 9210475298204100159, guid: 6a284f647251ed34c8dee245ead00757, type: 3}
+  enemiesSpawner: {fileID: 9210475298204100159, guid: 6a284f647251ed34c8dee245ead00757, type: 3}
   spawnPosition: {x: 0, y: 0, z: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
@@ -633,19 +633,7 @@ MonoBehaviour:
       m_Calls: []
   OnRoomJoined:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3094226339019272971, guid: 2fcfdc5a21c87a9469fe7f03430df252, type: 3}
-        m_TargetAssemblyTypeName: InstantiatePlayer, Assembly-CSharp
-        m_MethodName: InstantiatePlayer1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnRoomLeft:
     m_PersistentCalls:
       m_Calls: []
