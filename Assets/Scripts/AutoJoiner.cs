@@ -1,7 +1,5 @@
 using UnityEngine;
 using Alteruna;
-using Alteruna.Trinity;
-using UnityEngine.SceneManagement;
 
 public class AutoJoinRoom : MonoBehaviour
 {
@@ -53,6 +51,7 @@ public class AutoJoinRoom : MonoBehaviour
                 Debug.Log("Joining existing room: " + RoomName);
                 room.Join();
                 GameObject newObj = Instantiate(enemiesSpawner, spawnPosition, Quaternion.identity);
+                Debug.LogWarning("enemiesSpawner creado exitosamente.");
                 return;
             }
         }
