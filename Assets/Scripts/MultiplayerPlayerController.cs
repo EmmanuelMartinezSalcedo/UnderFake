@@ -3,7 +3,7 @@ using System.Collections;
 using Alteruna;
 using TMPro;
 
-public class MultiplayerPlayerController : Synchronizable
+public class MultiplayerPlayerController : CommunicationBridge
 {
     public bool isInvincible;
 
@@ -38,17 +38,6 @@ public class MultiplayerPlayerController : Synchronizable
     private bool barrierDisabled = false;
     private float barrierTimer = 0f;
     private float barrierDuration = 0f;
-
-    public override void DisassembleData(Reader reader, byte LOD)
-    {
-        health = reader.ReadInt();
-        _oldHealth = health;
-    }
-
-    public override void AssembleData(Writer writer, byte LOD)
-    {
-        writer.Write(health);
-    }
 
     private IEnumerator Start()
     {
@@ -121,7 +110,6 @@ public class MultiplayerPlayerController : Synchronizable
         if (health != _oldHealth)
         {
             _oldHealth = health;
-            Commit();
         }
 
         if (isBlinking && spriteRenderer != null)
@@ -151,8 +139,6 @@ public class MultiplayerPlayerController : Synchronizable
                 if (spriteRenderer != null) spriteRenderer.enabled = true;
             }
         }
-
-        base.SyncUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -163,14 +149,13 @@ public class MultiplayerPlayerController : Synchronizable
             if (!isInvincible)
             {
                 health -= 10;
-                InvokeRemoteMethod(nameof(RpcBlinkEffect));
+                RpcBlinkEffect();
                 return;
             }
-            InvokeRemoteMethod(nameof(RpcTempDisableBarrier), 5f);
+            RpcTempDisableBarrier(5f);
         }
     }
 
-    [SynchronizableMethod]
     public void RpcBlinkEffect()
     {
         Debug.Log($"RpcBlinkEffect ejecutado en {gameObject.name}");
@@ -182,7 +167,6 @@ public class MultiplayerPlayerController : Synchronizable
             spriteRenderer.enabled = false;
     }
 
-    [SynchronizableMethod]
     public void RpcTempDisableBarrier(float seconds)
     {
         Debug.Log($"RpcTempDisableBarrier ejecutado en {gameObject.name} por {seconds} segundos");
