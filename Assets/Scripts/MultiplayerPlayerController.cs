@@ -27,6 +27,7 @@ public class MultiplayerPlayerController : CommunicationBridge
     private bool isBlinking = false;
 
     private Alteruna.Avatar _avatar;
+    private Collider2D _collider;
 
     private IEnumerator Start()
     {
@@ -54,6 +55,11 @@ public class MultiplayerPlayerController : CommunicationBridge
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) Debug.LogWarning("No SpriteRenderer found on Player!");
         if (background == null) Debug.LogWarning("No Background found for Player!");
+    }
+
+    private void Awake()
+    {
+        _collider = GetComponent<Collider2D>();
     }
 
     private void LogFullHierarchy()
@@ -101,8 +107,9 @@ public class MultiplayerPlayerController : CommunicationBridge
             {
                 health -= 10;
                 StartCoroutine(BlinkEffect());
+                return;
             }
-            
+            StartCoroutine(TempDisableBarrier(5f));
         }
     }
 
@@ -124,5 +131,16 @@ public class MultiplayerPlayerController : CommunicationBridge
     public override void Possessed(bool isPossessor, User user)
     {
         enabled = isPossessor;
+    }
+
+    IEnumerator TempDisableBarrier(float seconds)
+    {
+        if (_collider != null) _collider.enabled = false;
+        if (spriteRenderer != null) spriteRenderer.enabled = false;
+
+        yield return new WaitForSeconds(seconds);
+
+        if (_collider != null) _collider.enabled = true;
+        if (spriteRenderer != null) spriteRenderer.enabled = true;
     }
 }
