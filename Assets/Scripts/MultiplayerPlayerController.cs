@@ -154,6 +154,7 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     public void BlinkEffect()
     {
+        Debug.LogWarning("Blink activado");
         isBlinking = true;
         blinkTimer = 0f;
         blinkStep = 0;
@@ -164,6 +165,7 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     public void TempDisableBarrier(float seconds)
     {
+        Debug.LogWarning("Desactivando barrera");
         barrierDisabled = true;
         barrierTimer = 0f;
         barrierDuration = seconds;
