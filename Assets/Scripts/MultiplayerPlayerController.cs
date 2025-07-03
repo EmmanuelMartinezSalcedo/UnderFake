@@ -108,7 +108,7 @@ public class MultiplayerPlayerController : CommunicationBridge
             _oldHealth = health;
         }
 
-        if (isBlinking && spriteRenderer != null)
+        if (isBlinking)
         {
             blinkTimer += Time.deltaTime;
             if (blinkTimer >= blinkDuration)
@@ -131,8 +131,8 @@ public class MultiplayerPlayerController : CommunicationBridge
             if (barrierTimer >= barrierDuration)
             {
                 barrierDisabled = false;
-                if (_collider != null) _collider.enabled = true;
-                if (spriteRenderer != null) spriteRenderer.enabled = true;
+                _collider.enabled = true;
+                spriteRenderer.enabled = true;
             }
         }
     }
