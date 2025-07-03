@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 636946291785506662}
   - component: {fileID: 1347773545089726073}
   - component: {fileID: 1759997358146109453}
+  - component: {fileID: 2514215790783084470}
   m_Layer: 0
   m_Name: BarrierRight
   m_TagString: Untagged
@@ -349,6 +350,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heart: {fileID: 0}
   useRightSide: 1
+--- !u!114 &2514215790783084470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6312917522013426031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1351115797, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: de6a306f-a55d-401e-a9f1-70b88bf447c5
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  UseGlobalPosition: 0
+  OnlySyncFromRoomOwner: 0
+  refreshRate: 30
+  SyncedAxes: 203
 --- !u!1 &8367766813693224385
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +398,7 @@ GameObject:
   - component: {fileID: 1770449834934271372}
   - component: {fileID: 1668065301122366584}
   - component: {fileID: 8972235037864779974}
+  - component: {fileID: 4638809392812931180}
   m_Layer: 0
   m_Name: BarrierLeft
   m_TagString: Untagged
@@ -543,3 +580,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heart: {fileID: 0}
   useRightSide: 1
+--- !u!114 &4638809392812931180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367766813693224385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1351115797, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 17eb9671-0c72-432f-9307-29bdbd433f21
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  UseGlobalPosition: 0
+  OnlySyncFromRoomOwner: 0
+  refreshRate: 30
+  SyncedAxes: 203
