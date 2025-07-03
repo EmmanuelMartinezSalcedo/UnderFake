@@ -60,12 +60,8 @@ public class MultiplayerPlayerController : CommunicationBridge
             yield break;
         }
 
-        if (!_avatar.IsMe) yield break;
-
         _collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null) Debug.LogWarning("No SpriteRenderer found on Player!");
-        if (background == null) Debug.LogWarning("No Background found for Player!");
     }
 
     private void LogFullHierarchy()
