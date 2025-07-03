@@ -24,14 +24,20 @@ public class MultiplayerPlayerController : Synchronizable
 
     private Vector2 targetPosition;
     private SpriteRenderer spriteRenderer;
-    private bool isBlinking = false;
 
     private Alteruna.Avatar _avatar;
     private Collider2D _collider;
 
-    bool _disabledTemp = false;
-
     private int _oldHealth;
+
+    private bool isBlinking = false;
+    private float blinkTimer = 0f;
+    private int blinkStep = 0;
+    private bool blinkVisible = true;
+
+    private bool barrierDisabled = false;
+    private float barrierTimer = 0f;
+    private float barrierDuration = 0f;
 
     public override void DisassembleData(Reader reader, byte LOD)
     {
@@ -118,6 +124,34 @@ public class MultiplayerPlayerController : Synchronizable
             Commit();
         }
 
+        if (isBlinking && spriteRenderer != null)
+        {
+            blinkTimer += Time.deltaTime;
+            if (blinkTimer >= blinkDuration)
+            {
+                blinkTimer = 0f;
+                blinkVisible = !blinkVisible;
+                spriteRenderer.enabled = blinkVisible;
+                blinkStep++;
+                if (blinkStep >= blinkCount * 2)
+                {
+                    isBlinking = false;
+                    spriteRenderer.enabled = true;
+                }
+            }
+        }
+
+        if (barrierDisabled)
+        {
+            barrierTimer += Time.deltaTime;
+            if (barrierTimer >= barrierDuration)
+            {
+                barrierDisabled = false;
+                if (_collider != null) _collider.enabled = true;
+                if (spriteRenderer != null) spriteRenderer.enabled = true;
+            }
+        }
+
         base.SyncUpdate();
     }
 
@@ -130,11 +164,9 @@ public class MultiplayerPlayerController : Synchronizable
             {
                 health -= 10;
                 RpcBlinkEffect();
-                //InvokeRemoteMethod(nameof(RpcBlinkEffect));
                 return;
             }
             RpcTempDisableBarrier(5f);
-            //InvokeRemoteMethod(nameof(RpcTempDisableBarrier), 5f);
         }
     }
 
@@ -142,49 +174,22 @@ public class MultiplayerPlayerController : Synchronizable
     public void RpcBlinkEffect()
     {
         Debug.Log($"RpcBlinkEffect ejecutado en {gameObject.name}");
-        StartCoroutine(BlinkEffect());
+        isBlinking = true;
+        blinkTimer = 0f;
+        blinkStep = 0;
+        blinkVisible = false;
+        if (spriteRenderer != null)
+            spriteRenderer.enabled = false;
     }
 
     [SynchronizableMethod]
     public void RpcTempDisableBarrier(float seconds)
     {
         Debug.Log($"RpcTempDisableBarrier ejecutado en {gameObject.name} por {seconds} segundos");
-        StartCoroutine(TempDisableBarrier(seconds));
-    }
-
-    private IEnumerator BlinkEffect()
-    {
-        if (isBlinking || spriteRenderer == null) yield break;
-
-        isBlinking = true;
-        for (int i = 0; i < blinkCount; i++)
-        {
-            spriteRenderer.enabled = false;
-            yield return new WaitForSeconds(blinkDuration);
-            spriteRenderer.enabled = true;
-            yield return new WaitForSeconds(blinkDuration);
-        }
-        isBlinking = false;
-    }
-
-    public override void Possessed(bool isPossessor, User user)
-    {
-        enabled = isPossessor;
-    }
-
-    IEnumerator TempDisableBarrier(float seconds)
-    {
-        if (_disabledTemp) yield break;
-        _disabledTemp = true;
-
+        barrierDisabled = true;
+        barrierTimer = 0f;
+        barrierDuration = seconds;
         if (_collider != null) _collider.enabled = false;
         if (spriteRenderer != null) spriteRenderer.enabled = false;
-
-        yield return new WaitForSeconds(seconds);
-
-        if (_collider != null) _collider.enabled = true;
-        if (spriteRenderer != null) spriteRenderer.enabled = true;
-
-        _disabledTemp = false;
     }
 }
