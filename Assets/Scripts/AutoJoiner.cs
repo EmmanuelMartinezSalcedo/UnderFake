@@ -11,7 +11,7 @@ public class AutoJoinRoom : MonoBehaviour
     private Multiplayer _multiplayer;
     private bool _attemptedJoin = false;
 
-    public GameObject newObjectPrefab;
+    public GameObject enemiesSpawner;
     public Vector3 spawnPosition;
 
     public GameObject player1;
@@ -52,7 +52,7 @@ public class AutoJoinRoom : MonoBehaviour
             {
                 Debug.Log("Joining existing room: " + RoomName);
                 room.Join();
-                GameObject newObj = Instantiate(newObjectPrefab, spawnPosition, Quaternion.identity);
+                GameObject newObj = Instantiate(enemiesSpawner, spawnPosition, Quaternion.identity);
                 return;
             }
         }
