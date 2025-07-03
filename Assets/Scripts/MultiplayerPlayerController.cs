@@ -31,19 +31,16 @@ public class MultiplayerPlayerController : Synchronizable
 
     bool _disabledTemp = false;
 
-    // --- Sincronización ---
     private int _oldHealth;
 
     public override void DisassembleData(Reader reader, byte LOD)
     {
-        // Recibe el valor sincronizado
         health = reader.ReadInt();
         _oldHealth = health;
     }
 
     public override void AssembleData(Writer writer, byte LOD)
     {
-        // Envía el valor sincronizado
         writer.Write(health);
     }
 
@@ -115,7 +112,6 @@ public class MultiplayerPlayerController : Synchronizable
         if (healthText != null)
             healthText.text = "HP: " + health.ToString();
 
-        // --- Sincronización ---
         if (health != _oldHealth)
         {
             _oldHealth = health;
@@ -133,11 +129,23 @@ public class MultiplayerPlayerController : Synchronizable
             if (!isInvincible)
             {
                 health -= 10;
-                StartCoroutine(BlinkEffect());
+                InvokeRemoteMethod(nameof(RpcBlinkEffect));
                 return;
             }
-            StartCoroutine(TempDisableBarrier(5f));
+            InvokeRemoteMethod(nameof(RpcTempDisableBarrier), 5f);
         }
+    }
+
+    [SynchronizableMethod]
+    public void RpcBlinkEffect()
+    {
+        StartCoroutine(BlinkEffect());
+    }
+
+    [SynchronizableMethod]
+    public void RpcTempDisableBarrier(float seconds)
+    {
+        StartCoroutine(TempDisableBarrier(seconds));
     }
 
     private IEnumerator BlinkEffect()
