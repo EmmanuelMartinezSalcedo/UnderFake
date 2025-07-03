@@ -100,7 +100,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!_avatar.IsMe) return;
         if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
