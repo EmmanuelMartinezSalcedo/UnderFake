@@ -62,14 +62,10 @@ public class MultiplayerPlayerController : CommunicationBridge
 
         if (!_avatar.IsMe) yield break;
 
+        _collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) Debug.LogWarning("No SpriteRenderer found on Player!");
         if (background == null) Debug.LogWarning("No Background found for Player!");
-    }
-
-    private void Awake()
-    {
-        _collider = GetComponent<Collider2D>();
     }
 
     private void LogFullHierarchy()
@@ -158,7 +154,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     public void BlinkEffect()
     {
-        Debug.Log($"RpcBlinkEffect ejecutado en {gameObject.name}");
         isBlinking = true;
         blinkTimer = 0f;
         blinkStep = 0;
@@ -169,7 +164,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
     public void TempDisableBarrier(float seconds)
     {
-        Debug.Log($"RpcTempDisableBarrier ejecutado en {gameObject.name} por {seconds} segundos");
         barrierDisabled = true;
         barrierTimer = 0f;
         barrierDuration = seconds;
