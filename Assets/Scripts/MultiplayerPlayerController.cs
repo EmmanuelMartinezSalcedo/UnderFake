@@ -129,10 +129,12 @@ public class MultiplayerPlayerController : Synchronizable
             if (!isInvincible)
             {
                 health -= 10;
-                InvokeRemoteMethod(nameof(RpcBlinkEffect));
+                RpcBlinkEffect();
+                //InvokeRemoteMethod(nameof(RpcBlinkEffect));
                 return;
             }
-            InvokeRemoteMethod(nameof(RpcTempDisableBarrier), 5f);
+            RpcTempDisableBarrier(5f);
+            //InvokeRemoteMethod(nameof(RpcTempDisableBarrier), 5f);
         }
     }
 
