@@ -139,12 +139,14 @@ public class MultiplayerPlayerController : Synchronizable
     [SynchronizableMethod]
     public void RpcBlinkEffect()
     {
+        Debug.Log($"RpcBlinkEffect ejecutado en {gameObject.name}");
         StartCoroutine(BlinkEffect());
     }
 
     [SynchronizableMethod]
     public void RpcTempDisableBarrier(float seconds)
     {
+        Debug.Log($"RpcTempDisableBarrier ejecutado en {gameObject.name} por {seconds} segundos");
         StartCoroutine(TempDisableBarrier(seconds));
     }
 
