@@ -10,11 +10,7 @@ public class PatternWithDuration
     public AttackPattern pattern;
     public float duration;
     public Transform spawnpoint;
-
-
 }
-
-
 
 public class NewAttackManager : MonoBehaviour
 {
@@ -37,19 +33,18 @@ public class NewAttackManager : MonoBehaviour
     {
         Debug.Log("AYUDA - esperando al Player");
 
-        while (GameObject.FindGameObjectWithTag("Player") == null)
+        while (GameObject.FindGameObjectWithTag("Heart") == null)
         {
             yield return null;
         }
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Heart").transform;
         Debug.Log("Player encontrado: " + playerTransform.name);
 
-        // Fix for CS0119: Correctly call GetComponent<T>() method
         Screen2D screen2DComponent = playerTransform.GetComponent<Screen2D>();
         if (screen2DComponent != null)
         {
             Debug.Log("Disabling Screen2D component on player: " + playerTransform.name);
-            screen2DComponent.enabled = false; // Disable Screen2D component if it exists
+            screen2DComponent.enabled = false;
         }
 
         StartCoroutine(ExecutePatternsLoop());
