@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4536381237462428849}
   - component: {fileID: 4969258051809430969}
   - component: {fileID: 3604417984652562842}
+  - component: {fileID: 465317192985286921}
   m_Layer: 0
   m_Name: Alert
   m_TagString: Untagged
@@ -105,3 +106,38 @@ MonoBehaviour:
   OnBlinkComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &465317192985286921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330464748588093473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1351115797, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: c747e9a4-916d-43e3-a91b-18b8e48018a6
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  UseGlobalPosition: 0
+  OnlySyncFromRoomOwner: 0
+  refreshRate: 30
+  SyncedAxes: 203
