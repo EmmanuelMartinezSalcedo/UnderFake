@@ -3,10 +3,10 @@ using System.Collections;
 using Alteruna;
 using TMPro;
 
-public class MultiplayerPlayerController : CommunicationBridge
+public class MultiplayerPlayerController : Synchronizable
 {
     public bool isInvincible;
-    
+
     [Header("Movimiento")]
     public float speed = 1f;
 
@@ -30,6 +30,22 @@ public class MultiplayerPlayerController : CommunicationBridge
     private Collider2D _collider;
 
     bool _disabledTemp = false;
+
+    // --- Sincronización ---
+    private int _oldHealth;
+
+    public override void DisassembleData(Reader reader, byte LOD)
+    {
+        // Recibe el valor sincronizado
+        health = reader.ReadInt();
+        _oldHealth = health;
+    }
+
+    public override void AssembleData(Writer writer, byte LOD)
+    {
+        // Envía el valor sincronizado
+        writer.Write(health);
+    }
 
     private IEnumerator Start()
     {
@@ -98,6 +114,15 @@ public class MultiplayerPlayerController : CommunicationBridge
 
         if (healthText != null)
             healthText.text = "HP: " + health.ToString();
+
+        // --- Sincronización ---
+        if (health != _oldHealth)
+        {
+            _oldHealth = health;
+            Commit();
+        }
+
+        base.SyncUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
