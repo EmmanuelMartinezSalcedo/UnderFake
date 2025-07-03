@@ -29,6 +29,8 @@ public class MultiplayerPlayerController : CommunicationBridge
     private Alteruna.Avatar _avatar;
     private Collider2D _collider;
 
+    bool _disabledTemp = false;
+
     private IEnumerator Start()
     {
         yield return null;
@@ -133,7 +135,6 @@ public class MultiplayerPlayerController : CommunicationBridge
         enabled = isPossessor;
     }
 
-    bool _disabledTemp = false;
     IEnumerator TempDisableBarrier(float seconds)
     {
         if (_disabledTemp) yield break;
@@ -141,13 +142,11 @@ public class MultiplayerPlayerController : CommunicationBridge
 
         if (_collider != null) _collider.enabled = false;
         if (spriteRenderer != null) spriteRenderer.enabled = false;
-        if (background != null) background.enabled = false;
 
         yield return new WaitForSeconds(seconds);
 
         if (_collider != null) _collider.enabled = true;
         if (spriteRenderer != null) spriteRenderer.enabled = true;
-        if (background != null) background.enabled = true;
 
         _disabledTemp = false;
     }
