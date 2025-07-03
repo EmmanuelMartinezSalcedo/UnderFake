@@ -334,6 +334,7 @@ MonoBehaviour:
   RoomName: global
   MaxUsers: 2
   enemiesSpawner: {fileID: 9210475298204100159, guid: 6a284f647251ed34c8dee245ead00757, type: 3}
+  arrowSpawner: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}

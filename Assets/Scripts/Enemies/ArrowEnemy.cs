@@ -20,7 +20,6 @@ public class ArrowEnemy : MonoBehaviour
         isTracking = false;
         travelDirection = (playerTransform.position - transform.position).normalized;
 
-        // Rotar la flecha para que apunte en la dirección de viaje
         float angle = Mathf.Atan2(travelDirection.y, travelDirection.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }

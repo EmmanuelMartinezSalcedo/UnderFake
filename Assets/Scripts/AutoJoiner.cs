@@ -10,6 +10,7 @@ public class AutoJoinRoom : MonoBehaviour
     private bool _attemptedJoin = false;
 
     public GameObject enemiesSpawner;
+    public GameObject arrowSpawner;
     public Vector3 spawnPosition;
 
     public GameObject player1;
@@ -51,6 +52,7 @@ public class AutoJoinRoom : MonoBehaviour
                 Debug.Log("Joining existing room: " + RoomName);
                 room.Join();
                 GameObject newObj = Instantiate(enemiesSpawner, spawnPosition, Quaternion.identity);
+                GameObject newObj2 = Instantiate(arrowSpawner, spawnPosition, Quaternion.identity);
                 Debug.LogWarning("enemiesSpawner creado exitosamente.");
                 return;
             }
