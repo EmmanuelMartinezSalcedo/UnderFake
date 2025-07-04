@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Alteruna;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerPlayerController : CommunicationBridge
 {
@@ -115,6 +116,7 @@ public class MultiplayerPlayerController : CommunicationBridge
         {
             return;
         }
+
         Vector2 currentPos = transform.position;
         Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
         transform.position = newPos;
@@ -127,11 +129,18 @@ public class MultiplayerPlayerController : CommunicationBridge
         if (healthText != null)
             healthText.text = "HP: " + health.ToString();
 
+        if (health <= 0)
+        {
+            health = 100;
+            SceneManager.LoadScene("MainMenu");
+        }
+
         if (health != _oldHealth)
         {
             _oldHealth = health;
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -140,7 +149,7 @@ public class MultiplayerPlayerController : CommunicationBridge
             Destroy(collision.gameObject);
             if (!isInvincible)
             {
-                health -= 10;
+                health -= 5;
                 BlinkEffect();
                 return;
             }
