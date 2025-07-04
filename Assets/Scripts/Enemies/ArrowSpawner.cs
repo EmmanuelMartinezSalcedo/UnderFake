@@ -44,6 +44,7 @@ public class ArrowSpawner : MonoBehaviour
                     Random.Range(spawnAreaMin.x, spawnAreaMax.x),
                     Random.Range(spawnAreaMin.y, spawnAreaMax.y)
                 );
+                Debug.LogWarning($"ArrowSpawner: Flecha {i + 1} se va a spawnear en {spawnPos}");
 
                 // Instancia la alerta y espera a que termine el blink
                 GameObject alert = _spawner.Spawn(2, spawnPos, Quaternion.identity, new Vector3(1f, 1f, 1f));
