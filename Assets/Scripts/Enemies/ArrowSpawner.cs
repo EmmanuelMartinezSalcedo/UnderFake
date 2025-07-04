@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Alteruna;
 using UnityEngine;
 
@@ -13,6 +14,10 @@ public class ArrowSpawner : MonoBehaviour
     public Vector2 spawnAreaMax = new Vector2(8, 4);
     private Spawner _spawner;
     private Transform playerTransform;
+
+    // Listas para llevar registro de los objetos instanciados
+    private List<GameObject> previousArrows = new List<GameObject>();
+    private List<GameObject> previousAlerts = new List<GameObject>();
 
     private void Awake()
     {
@@ -30,6 +35,21 @@ public class ArrowSpawner : MonoBehaviour
 
         while (true)
         {
+            // Destruir flechas y alertas anteriores
+            foreach (var arrow in previousArrows)
+            {
+                if (arrow != null)
+                    Destroy(arrow);
+            }
+            previousArrows.Clear();
+
+            foreach (var alert in previousAlerts)
+            {
+                if (alert != null)
+                    Destroy(alert);
+            }
+            previousAlerts.Clear();
+
             playerTransform = GameObject.FindGameObjectWithTag("Heart")?.transform;
             if (playerTransform == null)
             {
@@ -52,6 +72,7 @@ public class ArrowSpawner : MonoBehaviour
                 Debug.LogWarning($"ArrowSpawner: Flecha {i + 1} se va a spawnear en {spawnPositions[i]}");
 
                 GameObject alert = _spawner.Spawn(2, spawnPositions[i], Quaternion.identity, new Vector3(1f, 1f, 1f));
+                previousAlerts.Add(alert);
                 alertBlinks[i] = alert.GetComponent<AlertBlink>();
                 int idx = i; // Captura de índice para el closure
                 alertBlinks[i].OnBlinkComplete.AddListener(() => blinkDone[idx] = true);
@@ -68,6 +89,7 @@ public class ArrowSpawner : MonoBehaviour
             for (int i = 0; i < arrowCount; i++)
             {
                 GameObject arrowObj = _spawner.Spawn(1, spawnPositions[i], Quaternion.identity, new Vector3(1f, 1f, 1f));
+                previousArrows.Add(arrowObj);
                 ArrowEnemy arrow = arrowObj.GetComponent<ArrowEnemy>();
                 arrow.Initialize(playerTransform);
                 arrow.Shoot();
@@ -76,5 +98,4 @@ public class ArrowSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
         }
     }
-
 }
