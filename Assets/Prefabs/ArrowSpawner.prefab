@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840e16956958ee44fb8fb820a2219dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowCount: 3
+  arrowCount: 4
   arrowPrefab: {fileID: 1038998517629770113, guid: 1be8f8e619d1cb741a44e09f4bc5ad3d, type: 3}
   alertPrefab: {fileID: 1330464748588093473, guid: 463965c53d1c2e94ab2d602f381d90fe, type: 3}
-  spawnInterval: 5
+  spawnInterval: 15
   spawnAreaMin: {x: -8, y: -4}
   spawnAreaMax: {x: 8, y: 4}
