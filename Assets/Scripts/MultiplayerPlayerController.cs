@@ -40,6 +40,11 @@ public class MultiplayerPlayerController : CommunicationBridge
     private float barrierTimer = 0f;
     private float barrierDuration = 0f;
 
+    // NUEVAS VARIABLES
+    private float playTime = 0f;
+    private bool isCountingTime = false;
+    private bool hasDied = false;
+
     private IEnumerator Start()
     {
         yield return null;
@@ -63,6 +68,21 @@ public class MultiplayerPlayerController : CommunicationBridge
 
         _collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Si no es el jugador principal (corazón), desactivar vida
+        if (!_avatar.IsMe)
+        {
+            if (healthText != null)
+            {
+                healthText.gameObject.SetActive(false);
+            }
+
+            health = 0;
+        }
+        else
+        {
+            isCountingTime = true;
+        }
     }
 
     private void LogFullHierarchy()
@@ -117,6 +137,12 @@ public class MultiplayerPlayerController : CommunicationBridge
             return;
         }
 
+        // Aumentar tiempo jugado
+        if (isCountingTime && !hasDied)
+        {
+            playTime += Time.deltaTime;
+        }
+
         Vector2 currentPos = transform.position;
         Vector2 newPos = Vector2.Lerp(currentPos, targetPosition, speed * Time.deltaTime);
         transform.position = newPos;
@@ -126,13 +152,24 @@ public class MultiplayerPlayerController : CommunicationBridge
             transform.position = targetPosition;
         }
 
-        if (healthText != null)
-            healthText.text = "HP: " + health.ToString();
-
-        if (health <= 0)
+        // Mostrar vida si no ha muerto
+        if (healthText != null && !hasDied)
         {
-            health = 100;
-            SceneManager.LoadScene("MainMenu");
+            healthText.text = "HP: " + health.ToString();
+        }
+
+        // Si la vida llegó a 0 y aún no se ha procesado la muerte
+        if (health <= 0 && !hasDied)
+        {
+            hasDied = true;
+            isCountingTime = false;
+
+            if (healthText != null)
+            {
+                healthText.text = "Tiempo jugado: " + playTime.ToString("F2") + " segundos";
+            }
+
+            StartCoroutine(WaitAndLoadMenu(3f)); // Espera 3 segundos antes de cargar menú
         }
 
         if (health != _oldHealth)
@@ -141,9 +178,11 @@ public class MultiplayerPlayerController : CommunicationBridge
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!_avatar.IsMe)
+            return;
+
         if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
@@ -153,7 +192,7 @@ public class MultiplayerPlayerController : CommunicationBridge
                 BlinkEffect();
                 return;
             }
-            TempDisableBarrier(2f);
+            TempDisableBarrier(5f);
         }
     }
 
@@ -176,5 +215,11 @@ public class MultiplayerPlayerController : CommunicationBridge
         barrierDuration = seconds;
         if (_collider != null) _collider.enabled = false;
         if (spriteRenderer != null) spriteRenderer.enabled = false;
+    }
+
+    private IEnumerator WaitAndLoadMenu(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("MainMenu");
     }
 }
