@@ -1,4 +1,5 @@
 using System.Collections;
+using Alteruna;
 using UnityEngine;
 
 public class ArrowSpawner : MonoBehaviour
@@ -10,9 +11,14 @@ public class ArrowSpawner : MonoBehaviour
     public float spawnInterval = 30f;
     public Vector2 spawnAreaMin = new Vector2(-8, -4);
     public Vector2 spawnAreaMax = new Vector2(8, 4);
-
+    private Spawner _spawner;
     private Transform playerTransform;
 
+    private void Awake()
+    {
+        Debug.Log("AYUDA1");
+        _spawner = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Spawner>();
+    }
     void Start()
     {
         StartCoroutine(SpawnRoutine());
@@ -38,7 +44,7 @@ public class ArrowSpawner : MonoBehaviour
             );
 
             // Instancia la alerta y espera a que termine el blink
-            GameObject alert = Instantiate(alertPrefab, spawnPos, Quaternion.identity);
+            GameObject alert = _spawner.Spawn(2, spawnPos, Quaternion.identity, new Vector3(1f, 1f, 1f));
             AlertBlink alertBlink = alert.GetComponent<AlertBlink>();
             bool blinkDone = false;
             alertBlink.OnBlinkComplete.AddListener(() => blinkDone = true);
@@ -49,7 +55,7 @@ public class ArrowSpawner : MonoBehaviour
             // Instancia y dispara las flechas
             for (int i = 0; i < arrowCount; i++)
             {
-                GameObject arrowObj = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
+                GameObject arrowObj = _spawner.Spawn(1, spawnPos, Quaternion.identity, new Vector3(1f, 1f, 1f));
                 ArrowEnemy arrow = arrowObj.GetComponent<ArrowEnemy>();
                 arrow.Initialize(playerTransform);
                 arrow.Shoot();
