@@ -731,6 +731,7 @@ MonoBehaviour:
   SpawnableObjects:
   - {fileID: 8025923629429340744, guid: 27e24c48daceaa74884a2cc1a4c11312, type: 3}
   - {fileID: 1038998517629770113, guid: 1be8f8e619d1cb741a44e09f4bc5ad3d, type: 3}
+  - {fileID: 1330464748588093473, guid: 463965c53d1c2e94ab2d602f381d90fe, type: 3}
   OnObjectSpawn:
     m_PersistentCalls:
       m_Calls: []
