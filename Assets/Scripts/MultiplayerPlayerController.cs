@@ -63,18 +63,6 @@ public class MultiplayerPlayerController : CommunicationBridge
 
         _collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // Si no es el jugador principal (corazón), desactivar vida
-        if (!_avatar.IsMe)
-        {
-            if (healthText != null)
-            {
-                healthText.gameObject.SetActive(false);
-            }
-
-            // Opcional: prevenir uso accidental de vida
-            health = 0;
-        }
     }
 
     private void LogFullHierarchy()
@@ -153,11 +141,9 @@ public class MultiplayerPlayerController : CommunicationBridge
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!_avatar.IsMe)
-            return;
-
         if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
