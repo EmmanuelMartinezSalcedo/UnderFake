@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: ' '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -550,24 +550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: 5b763103-6973-462b-b63a-510b6f3c5dc2
-  BucketBehaviors:
-  - Name: Min
-    NetLOD: 0
-    Frequency: -1
-  - Name: Low
-    NetLOD: 1
-    Frequency: 10
-  - Name: Mid
-    NetLOD: 2
-    Frequency: 30
-  - Name: High
-    NetLOD: 3
-    Frequency: 50
-  - Name: Max
-    NetLOD: 4
-    Frequency: 120
-  Reliability: 2
   isInvincible: 0
   speed: 10
   size: 1
