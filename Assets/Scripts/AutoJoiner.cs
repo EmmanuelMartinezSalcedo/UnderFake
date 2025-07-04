@@ -52,7 +52,7 @@ public class AutoJoinRoom : MonoBehaviour
                 Debug.Log("Joining existing room: " + RoomName);
                 room.Join();
                 GameObject newObj = Instantiate(enemiesSpawner, spawnPosition, Quaternion.identity);
-                //GameObject newObj2 = Instantiate(arrowSpawner, spawnPosition, Quaternion.identity);
+                GameObject newObj2 = Instantiate(arrowSpawner, spawnPosition, Quaternion.identity);
                 Debug.LogWarning("enemiesSpawner creado exitosamente.");
                 return;
             }
