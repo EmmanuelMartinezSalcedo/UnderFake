@@ -153,7 +153,7 @@ public class MultiplayerPlayerController : CommunicationBridge
                 BlinkEffect();
                 return;
             }
-            TempDisableBarrier(5f);
+            TempDisableBarrier(2f);
         }
     }
 
