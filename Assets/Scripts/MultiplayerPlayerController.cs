@@ -169,7 +169,7 @@ public class MultiplayerPlayerController : CommunicationBridge
                 healthText.text = "Tiempo jugado: " + playTime.ToString("F2") + " segundos";
             }
 
-            StartCoroutine(WaitAndLoadMenu(3f)); // Espera 3 segundos antes de cargar menú
+            StartCoroutine(WaitAndLoadMenu(5f));
         }
 
         if (health != _oldHealth)
