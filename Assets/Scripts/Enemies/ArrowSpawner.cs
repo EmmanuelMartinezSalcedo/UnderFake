@@ -38,23 +38,22 @@ public class ArrowSpawner : MonoBehaviour
                 continue;
             }
 
-            Vector2 spawnPos = new Vector2(
-                Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-                Random.Range(spawnAreaMin.y, spawnAreaMax.y)
-            );
-
-            // Instancia la alerta y espera a que termine el blink
-            GameObject alert = _spawner.Spawn(2, spawnPos, Quaternion.identity, new Vector3(1f, 1f, 1f));
-            AlertBlink alertBlink = alert.GetComponent<AlertBlink>();
-            bool blinkDone = false;
-            alertBlink.OnBlinkComplete.AddListener(() => blinkDone = true);
-
-            // Espera a que termine el blink
-            yield return new WaitUntil(() => blinkDone);
-
-            // Instancia y dispara las flechas
             for (int i = 0; i < arrowCount; i++)
             {
+                Vector2 spawnPos = new Vector2(
+                    Random.Range(spawnAreaMin.x, spawnAreaMax.x),
+                    Random.Range(spawnAreaMin.y, spawnAreaMax.y)
+                );
+
+                // Instancia la alerta y espera a que termine el blink
+                GameObject alert = _spawner.Spawn(2, spawnPos, Quaternion.identity, new Vector3(1f, 1f, 1f));
+                AlertBlink alertBlink = alert.GetComponent<AlertBlink>();
+                bool blinkDone = false;
+                alertBlink.OnBlinkComplete.AddListener(() => blinkDone = true);
+
+                yield return new WaitUntil(() => blinkDone);
+
+                // Instancia y dispara la flecha
                 GameObject arrowObj = _spawner.Spawn(1, spawnPos, Quaternion.identity, new Vector3(1f, 1f, 1f));
                 ArrowEnemy arrow = arrowObj.GetComponent<ArrowEnemy>();
                 arrow.Initialize(playerTransform);
